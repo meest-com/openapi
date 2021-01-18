@@ -3,6 +3,7 @@
 namespace Meest\OpenApi\Includes;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use function GuzzleHttp\json_decode;
 
 class RequestException extends HttpException
 {
@@ -17,8 +18,8 @@ class RequestException extends HttpException
         $response = json_decode($e->getResponse()->getBody()->getContents(), true);
 
         $message = $response['info']['message']
-            .(!empty($response['info']['fieldName']) ? ' ('.$response['info']['fieldName'].') ' : null)
-            .': '.$response['info']['messageDetails'];
+            .(!empty($response['info']['fieldName']) ? ': '.$response['info']['fieldName'] : null)
+            .' ('.$response['info']['messageDetails'].')';
 
         parent::__construct(422, $message);
     }

@@ -2,8 +2,10 @@
 
 namespace Meest\OpenApi\Includes;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\ConnectException;
 use function GuzzleHttp\json_decode;
 use Meest\OpenApi\Handlers\Auth;
 
@@ -28,7 +30,7 @@ class Request
      * @param $data
      * @param mixed $token
      * @return mixed
-     * @throws \Exception|\GuzzleHttp\Exception\GuzzleException
+     * @throws Exception|RequestException
      */
     public function get($method, $url, $data = [])
     {
@@ -46,6 +48,8 @@ class Request
                 ->getBody()
                 ->getContents();
 
+        } catch (ConnectException $e) {
+            throw $e;
         } catch (BadResponseException $e) {
             if ($e->getCode() === 401) {
                 (new Auth($this->config))->force();
@@ -77,7 +81,7 @@ class Request
      * @param $data
      * @param mixed $token
      * @return mixed
-     * @throws \Exception|\GuzzleHttp\Exception\GuzzleException
+     * @throws Exception|\GuzzleHttp\Exception\GuzzleException
      */
     public function stream($url)
     {
