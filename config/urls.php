@@ -55,5 +55,6 @@ return [
         'get' => '/tracking/{trackNumber}',
         'delivered' => '/trackingDelivered/{dateFrom}/{dateTo}/{page}',
         'events' => '/trackingByDate/{searchDate}',
+        'byNumber' => '/trackByNumber/{trackNumber}',
     ],
 ];
