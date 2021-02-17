@@ -186,6 +186,20 @@ class Search extends Handler
     /**
      * Show the application dashboard.
      *
+     * @param $search search
+     *
+     * @return array
+     */
+    public function pudoSearchMWL($search)
+    {
+        return $this->request->get('GET', $this->getUrl('urls.search.pudoSearchMWL', [
+            '{search}' => $search
+        ]));
+    }
+
+    /**
+     * Show the application dashboard.
+     *
      * @param float latitude
      * @param float longitude
      *

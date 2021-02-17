@@ -14,6 +14,7 @@ return [
         'address' => '/addressSearch',
         'types' => '/branchTypes',
         'branch' => '/branchSearch',
+        'pudoSearchMWL' => '/pudoSearchMWL/{search}',
         'terminal' => '/payTerminalSearch/{latitude}/{longitude}',
         'contract' => '/getContractID',
     ],

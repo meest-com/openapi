@@ -34,11 +34,27 @@ class Printer extends Handler
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function declaration($uuid)
+    public function declaration($uuid, $type = 'pdf')
     {
         return $this->request->stream($this->getUrl('urls.print.declaration', [
             '{printValue}' => $uuid,
-            '{contentType}' => 'pdf',
+            '{contentType}' => $type,
+        ]));
+    }
+
+    /**
+     * Get parsel info.
+     *
+     * @param $uuid
+     *
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function cn23($uuid, $type = 'pdf')
+    {
+        return $this->request->stream($this->getUrl('urls.print.cn23', [
+            '{printValue}' => $uuid,
+            '{contentType}' => $type,
         ]));
     }
 }
