@@ -43,7 +43,6 @@ class Auth extends Handler
     {
         $token = $this->request->get('POST', $this->getUrl('urls.auth.refreshToken'), [
             'refreshToken' => $token,
-            'password' => $this->config->get('password')
         ]);
 
         $this->dateExpires($token['expiresIn']);
@@ -67,7 +66,11 @@ class Auth extends Handler
         }
 
         if ($this->checkExpires($credential['expiresIn'])) {
-            $credential = $this->refresh($credential['refreshToken']);
+            $newCredential = $this->refresh($credential['refreshToken']);
+
+            $credential['expiresIn'] = $newCredential['expiresIn'];
+            $credential['refreshToken'] = $newCredential['refreshToken'];
+
             $this->credential->set($credential);
         }
 
