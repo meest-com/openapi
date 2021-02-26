@@ -3,25 +3,16 @@
 namespace Meest\OpenApi\Handlers;
 
 use Meest\OpenApi\Includes\Handler;
-use Meest\OpenApi\Includes\Config;
 
 class Auth extends Handler
 {
     /**
-     *
-     * @param $config
-     */
-    public function __construct(Config $config)
-    {
-        parent::__construct($config);
-    }
-
-    /**
      * New token.
      *
      * @return array
+     * @throws \Exception
      */
-    public function new()
+    public function create()
     {
         $token = $this->request->get('POST', $this->getUrl('urls.auth.getToken'), [
             'username' => $this->config->get('username'),
@@ -51,46 +42,6 @@ class Auth extends Handler
     }
 
     /**
-     * cache token.
-     *
-     * @return void
-     * @throws \Exception
-     */
-    public function cache()
-    {
-        try {
-            $credential = $this->credential->get();
-        } catch (\ErrorException $e) {
-            $credential = $this->new();
-            $this->credential->set($credential);
-        }
-
-        if ($this->checkExpires($credential['expiresIn'])) {
-            $newCredential = $this->refresh($credential['refreshToken']);
-
-            $credential['expiresIn'] = $newCredential['expiresIn'];
-            $credential['refreshToken'] = $newCredential['refreshToken'];
-
-            $this->credential->set($credential);
-        }
-
-        $this->config->set('credential', $credential);
-    }
-
-    /**
-     * force token.
-     *
-     * @return void
-     * @throws \Exception
-     */
-    public function force()
-    {
-        $credential = $this->new();
-        $this->credential->set($credential);
-        $this->config->set('credential', $credential);
-    }
-
-    /**
      * date token expires.
      *
      * @param $time
@@ -99,16 +50,5 @@ class Auth extends Handler
     private function dateExpires(&$time)
     {
         $time = $time + date('U');
-    }
-
-    /**
-     * check token expires.
-     *
-     * @param $time
-     * @return bool
-     */
-    private function checkExpires($time): bool
-    {
-        return (int) date('U') >= $time;
     }
 }

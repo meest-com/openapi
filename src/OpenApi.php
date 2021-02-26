@@ -2,21 +2,18 @@
 
 namespace Meest\OpenApi;
 
-use Meest\OpenApi\Handlers\Auth;
 use Meest\OpenApi\Includes\Config;
+use Meest\OpenApi\Includes\Credential;
 
 class OpenApi
 {
     private $config;
-    private $auth;
+    private $credential;
 
     public function __construct($config = [])
     {
-        $this->config = new Config();
-
-        if (!empty($config)) {
-            $this->config->merge($config);
-        }
+        $this->config = new Config($config);
+        $this->credential = new Credential($this->config);
     }
 
     /**
@@ -49,46 +46,14 @@ class OpenApi
     }
 
     /**
-     * Call auth handler.
-     *
-     * @return self
-     */
-    public function auth()
-    {
-        $this->auth = new Auth($this->config);
-
-        return $this;
-    }
-
-    /**
-     * get new token.
-     *
-     * @return array
-     */
-    public function new()
-    {
-        return $this->auth->new();
-    }
-
-    /**
-     * refresh token.
-     *
-     * @param $token
-     * @return array
-     */
-    public function refresh($token)
-    {
-        return $this->auth->refresh($token);
-    }
-
-    /**
      * cache token.
      *
      * @return self
+     * @throws \Exception
      */
-    public function cache()
+    public function saveToken()
     {
-        $this->auth->cache();
+        $this->credential->cache();
 
         return $this;
     }

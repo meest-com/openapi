@@ -6,7 +6,6 @@ abstract class Handler
 {
     protected $config;
     protected $request;
-    protected $credential;
     protected $cache;
     protected $cacheInterval;
 
@@ -16,7 +15,6 @@ abstract class Handler
         $this->cache = $this->config->get('cache');
         $this->cacheInterval = $this->config->get('cache_interval');
         $this->request = new Request($this->config);
-        $this->credential = new Cache($this->config->get('credential_file'));
     }
 
     protected function getUrl($url, $query = [], $params = [])

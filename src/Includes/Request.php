@@ -7,7 +7,6 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ConnectException;
 use function GuzzleHttp\json_decode;
-use Meest\OpenApi\Handlers\Auth;
 
 class Request
 {
@@ -30,7 +29,7 @@ class Request
      * @param $data
      * @param mixed $token
      * @return mixed
-     * @throws Exception|RequestException
+     * @throws Exception|RequestException|\GuzzleHttp\Exception\GuzzleException
      */
     public function get($method, $url, $data = [])
     {
@@ -38,7 +37,9 @@ class Request
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
         ];
-        if (($credential = $this->config->get('credential')) !== null) {$headers['token'] = $credential['token'];}
+        if (($credential = $this->config->get('credential')) !== null) {
+            $headers['token'] = $credential['token'];
+        }
 
         try {
             $response = $this->client->request($method, $url, [
@@ -52,7 +53,7 @@ class Request
             throw $e;
         } catch (BadResponseException $e) {
             if ($e->getCode() === 401) {
-                (new Auth($this->config))->force();
+                (new Credential($this->config))->force();
             }
 
             $this->logger->error('get', [
@@ -95,7 +96,7 @@ class Request
             $response = file_get_contents($url, 'rb', $context);
         } catch (\ErrorException $e) {
             if ($e->getCode() === 401) {
-                (new Auth($this->config))->force();
+                (new Credential($this->config))->force();
             }
 
             $this->logger->error('streem', [

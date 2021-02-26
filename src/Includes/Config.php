@@ -6,9 +6,13 @@ class Config
 {
     private $array = [];
 
-    public function __construct()
+    public function __construct($array = [])
     {
         $this->load();
+
+        if (!empty($array)) {
+            $this->merge($array);
+        }
     }
 
     public function load(): void
@@ -20,55 +24,16 @@ class Config
 
     public function set($key, $value): void
     {
-        if (is_null($key)) {
-            $this->array = $value;
-        }
-
-        if (strpos($key, '.') === false) {
-            $this->array[$key] = $value;
-        } else {
-            foreach (explode('.', $key) as $segment) {
-                if (!isset($this->array[$key]) || ! is_array($this->array[$key])) {
-                    $array[$key] = [];
-                }
-
-                $array = &$array[$key];
-            }
-
-            $array[array_shift($keys)] = $value;
-        }
+        Arr::set($this->array, $key, $value);
     }
 
     public function get($key, $default = null)
     {
-        if (is_null($key)) {
-            return $this->array;
-        }
-
-        if (strpos($key, '.') === false) {
-            return $this->array[$key] ?? $default;
-        }
-
-        $array = $this->array;
-
-        foreach (explode('.', $key) as $segment) {
-            if (is_array($array) && array_key_exists($segment, $array)) {
-                $array = $array[$segment];
-            } else {
-                return $default;
-            }
-        }
-
-        return $array;
+        return Arr::get($this->array, $key, $default);
     }
 
-    public function merge($arr = []): void
+    public function merge($array = []): void
     {
-        $this->array = array_merge($this->array, $arr);
-    }
-
-    public function del($key): void
-    {
-        unset($this->array[$key]);
+        $this->array = array_replace_recursive($this->array, $array);
     }
 }
