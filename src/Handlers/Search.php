@@ -171,11 +171,19 @@ class Search extends Handler
     public function branch($data)
     {
         if (isset($data['branchID'])) {
-            return $this->cache::remember("branch:id:{$data['branchID']}", 3600, function () use ($data) {
-                return $this->request->get('POST', $this->getUrl('urls.search.branch'), [
+            $key = "branch:id:{$data['branchID']}";
+
+            if (($request = $this->cache::get($key)) === null) {
+                $request = $this->request->get('POST', $this->getUrl('urls.search.branch'), [
                     'filters' => $data
                 ]);
-            });
+
+                if (!empty($request)) {
+                    $this->cache::put($key, $request, $this->cacheInterval);
+                }
+            }
+
+            return $request;
         }
 
         return $this->request->get('POST', $this->getUrl('urls.search.branch'), [

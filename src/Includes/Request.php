@@ -48,7 +48,6 @@ class Request
             ])
                 ->getBody()
                 ->getContents();
-
         } catch (ConnectException $e) {
             throw $e;
         } catch (BadResponseException $e) {
