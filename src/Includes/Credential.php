@@ -87,7 +87,7 @@ class Credential
         try {
             $credential = $this->load();
             $credential = $this->check($credential);
-        } catch (\InvalidArgumentException $e) {
+        } catch (\Exception $e) {
             $credential = $this->auth->create();
             $this->save($credential);
         }
