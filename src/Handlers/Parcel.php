@@ -14,7 +14,7 @@ class Parcel extends Handler
     /**
      * Get parsel info.
      *
-     * @param $uuid
+     * @param string $uuid
      *
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -23,6 +23,23 @@ class Parcel extends Handler
     {
         return $this->request->get('GET', $this->getUrl('urls.parcel.show', [
             '{parcelID}' => $uuid
+        ]));
+    }
+
+    /**
+     * Get parsel info.
+     *
+     * @param string $uuid
+     * @param string $field [parcelID, barCode, parcelNumber]
+     *
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function get($uuid, $field = 'parcelID')
+    {
+        return $this->request->get('GET', $this->getUrl('urls.parcel.get', [
+            '{parcelID}' => $uuid,
+            '{searchMode}' => $field
         ]));
     }
 

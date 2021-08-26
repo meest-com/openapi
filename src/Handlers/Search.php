@@ -22,11 +22,19 @@ class Search extends Handler
     public function country($data)
     {
         if (isset($data['countryID'])) {
-            return $this->cache::remember("country:id:{$data['countryID']}", $this->cacheInterval, function () use ($data) {
-                return $this->request->get('POST', $this->getUrl('urls.search.country'), [
+            $key = "country:id:{$data['countryID']}";
+
+            if (($request = $this->cache::get($key)) === null) {
+                $request = $this->request->get('POST', $this->getUrl('urls.search.country'), [
                     'filters' => $data
                 ]);
-            });
+
+                if (!empty($request)) {
+                    $this->cache::put($key, $request, $this->cacheInterval);
+                }
+            }
+
+            return $request;
         }
 
         return $this->request->get('POST', $this->getUrl('urls.search.country'), [
@@ -48,11 +56,19 @@ class Search extends Handler
     public function region($data)
     {
         if (isset($data['regionID'])) {
-            return $this->cache::remember("region:id:{$data['regionID']}", $this->cacheInterval, function () use ($data) {
-                return $this->request->get('POST', $this->getUrl('urls.search.region'), [
+            $key = "region:id:{$data['regionID']}";
+
+            if (($request = $this->cache::get($key)) === null) {
+                $request = $this->request->get('POST', $this->getUrl('urls.search.region'), [
                     'filters' => $data
                 ]);
-            });
+
+                if (!empty($request)) {
+                    $this->cache::put($key, $request, $this->cacheInterval);
+                }
+            }
+
+            return $request;
         }
 
         return $this->request->get('POST', $this->getUrl('urls.search.region'), [
@@ -74,11 +90,19 @@ class Search extends Handler
     public function district($data)
     {
         if (isset($data['districtID'])) {
-            return $this->cache::remember("district:id:{$data['districtID']}", $this->cacheInterval, function () use ($data) {
-                return $this->request->get('POST', $this->getUrl('urls.search.district'), [
+            $key = "district:id:{$data['districtID']}";
+
+            if (($request = $this->cache::get($key)) === null) {
+                $request = $this->request->get('POST', $this->getUrl('urls.search.district'), [
                     'filters' => $data
                 ]);
-            });
+
+                if (!empty($request)) {
+                    $this->cache::put($key, $request, $this->cacheInterval);
+                }
+            }
+
+            return $request;
         }
 
         return $this->request->get('POST', $this->getUrl('urls.search.district'), [
@@ -103,11 +127,19 @@ class Search extends Handler
     public function city($data)
     {
         if (isset($data['cityID'])) {
-            return $this->cache::remember("city:id:{$data['cityID']}", $this->cacheInterval, function () use ($data) {
-                return $this->request->get('POST', $this->getUrl('urls.search.city'), [
+            $key = "city:id:{$data['cityID']}";
+
+            if (($request = $this->cache::get($key)) === null) {
+                $request = $this->request->get('POST', $this->getUrl('urls.search.city'), [
                     'filters' => $data
                 ]);
-            });
+
+                if (!empty($request)) {
+                    $this->cache::put($key, $request, $this->cacheInterval);
+                }
+            }
+
+            return $request;
         }
 
         return $this->request->get('POST', $this->getUrl('urls.search.city'), [

@@ -20,6 +20,7 @@ return [
     ],
     'parcel' => [
         'show' => '/parcelInfo/{parcelID}',
+        'get' => '/getParcel/{parcelID}/{searchMode}',
         'create' => '/parcel',
         'update' => '/parcel/{parcelID}',
         'delete' => '/parcel/{parcelID}',
