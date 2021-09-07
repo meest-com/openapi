@@ -35,11 +35,12 @@ class Parcel extends Handler
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function get($uuid, $field = 'parcelID')
+    public function get($uuid, $field = 'parcelID', $type = null)
     {
         return $this->request->get('GET', $this->getUrl('urls.parcel.get', [
             '{parcelID}' => $uuid,
-            '{searchMode}' => $field
+            '{searchMode}' => $field,
+            '{returnMode}' => $type
         ]));
     }
 
