@@ -32,6 +32,7 @@ return [
         'photoFixation' => '/photoFixation/{number}',
         'LockParcel' => '/LockParcel',
         'UnlockParcel' => '/UnlockParcel',
+        'sticker' => '/stickerAll/{parcelID}'
     ],
     'register' => [
         'branch' => [

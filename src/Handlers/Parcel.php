@@ -98,4 +98,20 @@ class Parcel extends Handler
             '{parcelID}' => $uuid
         ]));
     }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @param $uuid
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function sticker($uuid)
+    {
+        $arr = explode('-', strtolower($uuid));
+
+        return $this->request->get('GET', $this->getUrl('urls.parcel.sticker', [
+            '{parcelID}' => '0x' . $arr[3] . $arr[4] . $arr[2] . $arr[1] . $arr[0]
+        ]));
+    }
 }
