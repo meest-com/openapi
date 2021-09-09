@@ -110,8 +110,10 @@ class Parcel extends Handler
     {
         $arr = explode('-', strtolower($uuid));
 
-        return $this->request->get('GET', $this->getUrl('urls.parcel.sticker', [
+        $result = $this->request->get('GET', $this->getUrl('urls.parcel.sticker', [
             '{parcelID}' => '0x' . $arr[3] . $arr[4] . $arr[2] . $arr[1] . $arr[0]
         ]));
+
+        return $result[0] ?? null;
     }
 }
