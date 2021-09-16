@@ -207,8 +207,7 @@ class Search extends Handler
 
             if (($request = $this->cache::get($key)) === null) {
                 $request = $this->request->get('POST', $this->getUrl('urls.search.branch'), [
-                    'filters' => $data,
-                    'closed' => true
+                    'filters' => $data
                 ]);
 
                 if (!empty($request)) {
@@ -220,8 +219,7 @@ class Search extends Handler
         }
 
         return $this->request->get('POST', $this->getUrl('urls.search.branch'), [
-            'filters' => $data,
-            'closed' => true
+            'filters' => $data
         ]);
     }
 
