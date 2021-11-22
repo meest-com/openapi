@@ -92,10 +92,11 @@ class Parcel extends Handler
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function delete($uuid)
+    public function delete($parcelUuid, $contractUuid)
     {
         return $this->request->get('DELETE', $this->getUrl('urls.parcel.delete', [
-            '{parcelID}' => $uuid
+            '{parcelID}' => $parcelUuid,
+            '{contractID}' => $contractUuid
         ]));
     }
 

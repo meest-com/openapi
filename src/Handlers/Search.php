@@ -200,7 +200,7 @@ class Search extends Handler
      *
      * @return array
      */
-    public function branch($data)
+    public function branch($data = [])
     {
         if (isset($data['branchID'])) {
             $key = "branch:id:{$data['branchID']}";

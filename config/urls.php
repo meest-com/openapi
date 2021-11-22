@@ -23,7 +23,7 @@ return [
         'get' => '/getParcel/{parcelID}/{searchMode}/{returnMode}',
         'create' => '/parcel',
         'update' => '/parcel/{parcelID}',
-        'delete' => '/parcel/{parcelID}',
+        'delete' => '/parcel/{parcelID}/{contractID}',
         'list' => '/parcelsList/{dateFrom}',
         'calculate' => '/calculate',
         'packTypes' => '/packTypes',
