@@ -6,6 +6,7 @@ use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\ConnectException;
+use Meest\OpenApi\Exceptions\RequestException;
 use function GuzzleHttp\json_decode;
 
 class Request
@@ -61,6 +62,7 @@ class Request
                 'message' => $e->getMessage()
             ]);
 
+            
             throw new RequestException($e);
         }
 
