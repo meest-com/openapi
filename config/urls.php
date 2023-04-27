@@ -60,4 +60,8 @@ return [
         'events' => '/trackingByDate/{searchDate}',
         'byNumber' => '/trackByNumber/{trackNumber}',
     ],
+    'export' => [
+        'service' => '/exportCountriesFromUkraine',
+        'calculate' => '/calculateExportParcel',
+    ],
 ];
