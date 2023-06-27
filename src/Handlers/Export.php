@@ -23,15 +23,28 @@ class Export extends Handler
     }
 
     /**
-     * Calculate delivery cost.
+     * Calculate export delivery cost.
      *
      * @param array $data
      *
      * @return array
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function calculate(array $data)
+    public function calculateExport(array $data)
     {
-        return $this->request->get('POST', $this->getUrl('urls.export.calculate'), $data);
+        return $this->request->get('POST', $this->getUrl('urls.export.calculateExport'), $data);
+    }
+
+    /**
+     * Calculate standard delivery cost.
+     *
+     * @param array $data
+     *
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function calculateStandard(array $data)
+    {
+        return $this->request->get('POST', $this->getUrl('urls.export.calculateStandard'), $data);
     }
 }
