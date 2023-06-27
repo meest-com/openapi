@@ -62,6 +62,7 @@ return [
     ],
     'export' => [
         'service' => '/exportCountriesFromUkraine',
-        'calculate' => '/calculateExportParcel',
+        'calculateExport' => '/calculateExportParcel',
+        'calculateStandard' => '/calculateStandard',
     ],
 ];
