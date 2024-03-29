@@ -47,4 +47,17 @@ class Export extends Handler
     {
         return $this->request->get('POST', $this->getUrl('urls.export.calculateStandard'), $data);
     }
+	
+    /**
+     * Calculate standard delivery cost.
+     *
+     * @param array $data
+     *
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function calculateStandardIoss(array $data)
+    {
+        return $this->request->get('POST', $this->getUrl('urls.export.calculateStandardIoss'), $data);
+    }
 }

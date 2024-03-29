@@ -64,5 +64,6 @@ return [
         'service' => '/exportCountriesFromUkraine',
         'calculateExport' => '/calculateExportParcel',
         'calculateStandard' => '/calculateStandard',
+		'calculateStandardIoss' => '/priceIntercourier_standardIOSS',
     ],
 ];
